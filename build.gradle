@@ -1,0 +1,28 @@
+allprojects {
+    repositories {
+        mavenCentral()
+        maven {
+            url "http://192.168.5.92:9090/releases"
+            allowInsecureProtocol = true
+        }
+    }
+    group = 'com.nomad'
+}
+
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 11
+    targetCompatibility = 11
+    archivesBaseName = "${rootProject.name}-${project.name}"
+
+    task deps {
+        doLast {
+            ['compile', 'runtime'].each { mode ->
+                copy {
+                    from configurations.getByName(mode).files
+                    into "${project.name}/deps"
+                }
+            }
+        }
+    }
+}

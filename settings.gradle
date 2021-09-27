@@ -1,0 +1,6 @@
+include('common')
+include('module01')
+include('module02')
+
+rootProject.name = 'springboot-mm-template'
+
